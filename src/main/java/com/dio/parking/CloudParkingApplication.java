@@ -1,3 +1,5 @@
+// Continuar em: Apresentando os conceitos REST e Verbos HTTP. Criando o primeiro endpoint de cadastro.
+
 package com.dio.parking;
 
 import org.springframework.boot.SpringApplication;
