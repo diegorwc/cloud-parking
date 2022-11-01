@@ -1,9 +1,8 @@
-package com.dio.parking.model;
+package com.dio.parking.controller.dto;
 
 import java.time.LocalDateTime;
 
-public class Parking {
-
+public class ParkingDTO {
 	private String id;
 	private String license;
 	private String state;
@@ -13,18 +12,6 @@ public class Parking {
 	private LocalDateTime exitDate;
 	private Double bill;
 
-	
-	public Parking(String id, String license, String state, String model, String color) {
-		super();
-		this.id = id;
-		this.license = license;
-		this.state = state;
-		this.model = model;
-		this.color = color;
-	}
-
-	public Parking() {}
-	
 	public String getId() {
 		return id;
 	}
@@ -87,5 +74,7 @@ public class Parking {
 
 	public void setBill(Double bill) {
 		this.bill = bill;
-	}	
+	}
+
+	
 }
