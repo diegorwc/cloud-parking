@@ -12,15 +12,21 @@ import org.springframework.stereotype.Service;
 
 import com.dio.parking.exception.ParkingNotFoundException;
 import com.dio.parking.model.Parking;
+import com.dio.parking.repository.ParkingRepository;
 
 @Service
 public class ParkingService {
-
+	
+	private final ParkingRepository parkingRepository;
 	private static Map<String, Parking> parkingMap = new HashMap();
 	
 	
+	public ParkingService(ParkingRepository parkingRepository) {
+		this.parkingRepository = parkingRepository;
+	}
+	
 	public List<Parking> findAll() {
-		return parkingMap.values().stream().collect(Collectors.toList());
+		return parkingRepository.findAll();		
 	}
 	
 	private static String getUUID() {
@@ -28,24 +34,21 @@ public class ParkingService {
 	}
 
 	public Parking findById(String id) {
-		Parking parking = parkingMap.get(id);
-		if(parking == null) {
-			throw new ParkingNotFoundException(id);
-		}
-		return parking; 
+		return parkingRepository.findById(id).orElseThrow(() -> new ParkingNotFoundException(id)); 
 	}
 
-	public Parking create(Parking parkingCreate) {
+	public Parking create(Parking parkingCreate) {	
+		//verificar se placa já existe
 		String uuid = getUUID();
 		parkingCreate.setId(uuid);
 		parkingCreate.setEntryDate(LocalDateTime.now());
-		parkingMap.put(uuid, parkingCreate);
+		parkingRepository.save(parkingCreate);
 		return parkingCreate;
 	}
 
 	public void delete(String id) {
-		Parking parking = findById(id);
-		parkingMap.remove(id);		
+//		Parking parking = findById(id);
+		parkingRepository.deleteById(id);	
 	}
 
 	public Parking update(String id, Parking parkingCreate) {
@@ -53,8 +56,8 @@ public class ParkingService {
 		parking.setColor(parkingCreate.getColor());
 		parking.setLicense(parkingCreate.getLicense());
 		parking.setModel(parkingCreate.getModel());
-		parking.setState(parkingCreate.getState());
-		parkingMap.replace(id, parking);
+		parking.setState(parkingCreate.getState());		
+		parkingRepository.save(parking);
 		return parking;
 	}
 
@@ -63,6 +66,9 @@ public class ParkingService {
 		//recuperar o estacionado
 		//atualizar data de saida
 		//calcular o valor
-		return null;
+		Parking parking = findById(id);
+        parking.setExitDate(LocalDateTime.now());
+        parking.setBill(ParkingCheckOut.getBill(parking));
+        return parking;		
 	}
 }

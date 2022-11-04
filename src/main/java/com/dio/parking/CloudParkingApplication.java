@@ -1,4 +1,5 @@
-// Continuar em: Configurando as exceções da aplicação e fazendo o tratamento no controller.
+// Continuar em: Implementando algoritmos da regra de negocio
+// Faltam 7
 
 package com.dio.parking;
 
