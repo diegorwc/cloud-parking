@@ -1,5 +1,5 @@
-// Continuar em: Implementando algoritmos da regra de negocio
-// Faltam 7
+// Continuar em: Testando o banco de dados da aplicação e ...
+// Faltam 6
 
 package com.dio.parking;
 
