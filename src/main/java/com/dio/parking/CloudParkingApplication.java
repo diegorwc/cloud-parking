@@ -1,5 +1,5 @@
-// Continuar em: Testando o banco de dados da aplicação e ...
-// Faltam 6
+// Continuar em: Configurando a segurança
+// Faltam 4
 
 package com.dio.parking;
 

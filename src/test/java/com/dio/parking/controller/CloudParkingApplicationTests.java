@@ -26,6 +26,8 @@ class CloudParkingApplicationTests extends AbstractContainerBase {
 	@Test
 	void whenfindAllThenCheckResult() {
 		RestAssured.given()
+			.auth()
+			.basic("user", "Dio@123456")
 			.when()
 			.get("/parking")
 			.then()			
@@ -42,6 +44,8 @@ class CloudParkingApplicationTests extends AbstractContainerBase {
 		createDTO.setState("RS");
 		
 		RestAssured.given()
+			.auth()
+			.basic("user", "Dio@123456")
 			.when()
 			.contentType(org.springframework.http.MediaType.APPLICATION_JSON_VALUE)
 			.body(createDTO)
